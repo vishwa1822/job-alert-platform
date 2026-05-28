@@ -1,0 +1,94 @@
+# Java / Maven
+**/target/
+**/build/
+**/out/
+**/*.class
+**/*.jar
+**/*.war
+**/*.ear
+**/*.nar
+**/*.zip
+**/*.tar.gz
+**/*.log
+**/*.tmp
+**/*.cache
+**/*.pid
+**/*.lock
+
+# Spring Boot
+**/spring-boot-devtools.properties
+
+# Maven
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+**/dependency-reduced-pom.xml
+**/release.properties
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/buildNumber.properties
+**/target/
+**/logs/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+frontend/*.local
+
+# Vite
+frontend/.vite/
+frontend/dist/
+
+# NPM
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.npm/_logs/
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# Python caches (if any)
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/*.pyd
+
+# Eclipse
+.settings/
+.metadata/
+
+# JetBrains
+*.class
+out/
+
+# Misc
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig

@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: user-service
+          uri: ${USER_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**, /api/users/**
+          filters:
+            - name: JwtAuthFilter
+              args:
+                exclude: /api/auth/login,/api/auth/register
+        - id: job-service
+          uri: ${JOB_SCRAPER_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/jobs/**, /api/sources/**
+        - id: notification-service
+          uri: ${NOTIFICATION_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/notifications/**, /ws/**
+        - id: recommendation-service
+          uri: ${RECOMMENDATION_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/recommendations/**
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
+
+jwt:
+  secret: ${JWT_SECRET:jobpulse_jwt_secret_key_2024}
+  expiration: 86400000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

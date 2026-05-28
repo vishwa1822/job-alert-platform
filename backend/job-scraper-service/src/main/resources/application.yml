@@ -1,0 +1,39 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: job-scraper-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/jobpulse}
+    username: ${SPRING_DATASOURCE_USERNAME:jobpulse}
+    password: ${SPRING_DATASOURCE_PASSWORD:jobpulse_secret}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
+
+scraper:
+  interval-ms: ${SCRAPE_INTERVAL_MS:300000}
+  max-concurrent: 10
+  timeout-seconds: 30
+  user-agent: "JobPulse-Bot/1.0"
+
+kafka:
+  topics:
+    new-jobs: job.new-postings
+    job-updates: job.updates
+    scrape-complete: scraper.complete
