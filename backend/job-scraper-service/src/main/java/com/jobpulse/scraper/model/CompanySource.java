@@ -18,4 +18,11 @@ public class CompanySource {
     @Column(name = "last_scraped_at") private OffsetDateTime lastScrapedAt;
     @Column(name = "is_active") private Boolean isActive;
     @Column(name = "scrape_strategy") private String scrapeStrategy;
+
+    @PrePersist
+    public void prePersist() {
+        if (isActive == null) isActive = true;
+        if (scrapeIntervalMinutes == null) scrapeIntervalMinutes = 15;
+        if (scrapeStrategy == null) scrapeStrategy = "HTML";
+    }
 }

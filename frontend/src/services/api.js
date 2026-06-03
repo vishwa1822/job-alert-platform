@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const BASE = import.meta.env.VITE_API_URL ?? '';
 
 let authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('jp_token') : null;
 
@@ -44,6 +44,13 @@ export const api = {
     unread:      ()         => req('/api/notifications/unread-count'),
     markRead:    (id)       => req(`/api/notifications/${id}/read`, { method: 'PATCH' }),
     markAllRead: ()         => req('/api/notifications/read-all',   { method: 'PATCH' }),
+  },
+  sources: {
+    list: () => req('/api/sources'),
+    create: (body) => req('/api/sources', { method: 'POST', body: JSON.stringify(body) }),
+    toggle: (id, active) => req(`/api/sources/${id}/toggle?active=${active}`, { method: 'PATCH' }),
+    delete: (id) => req(`/api/sources/${id}`, { method: 'DELETE' }),
+    scrapeNow: (id) => req(`/api/sources/${id}/scrape`, { method: 'POST' }),
   },
   recommendations: {
     list: (uid) => req(`/api/recommendations/user/${uid}`),

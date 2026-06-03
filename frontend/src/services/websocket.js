@@ -1,4 +1,13 @@
-const WS_BASE = (import.meta.env.VITE_WS_URL || 'ws://localhost:8080');
+function resolveWsBase() {
+  if (import.meta.env.VITE_WS_URL) return import.meta.env.VITE_WS_URL;
+  if (typeof window !== 'undefined') {
+    const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${proto}//${window.location.host}`;
+  }
+  return 'ws://localhost:8080';
+}
+
+const WS_BASE = resolveWsBase();
 
 let ws         = null;
 let userId     = null;

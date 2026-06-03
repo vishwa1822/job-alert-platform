@@ -51,17 +51,6 @@ public class JobController {
         return ResponseEntity.ok(jobs);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Job> getJob(@PathVariable UUID id) {
-        return jobRepository.findById(id)
-                .map(job -> {
-                    job.setViewCount(job.getViewCount() + 1);
-                    jobRepository.save(job);
-                    return ResponseEntity.ok(job);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @GetMapping("/recent")
     public ResponseEntity<List<Job>> getRecentJobs(
             @RequestParam(defaultValue = "24") int hoursBack
@@ -86,6 +75,17 @@ public class JobController {
                 "activeListings", activeJobs,
                 "sourcesMonitored", sourcesActive
         ));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Job> getJob(@PathVariable UUID id) {
+        return jobRepository.findById(id)
+                .map(job -> {
+                    job.setViewCount(job.getViewCount() + 1);
+                    jobRepository.save(job);
+                    return ResponseEntity.ok(job);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/scrape/trigger")

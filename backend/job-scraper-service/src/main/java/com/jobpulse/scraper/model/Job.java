@@ -3,6 +3,7 @@ package com.jobpulse.scraper.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +26,8 @@ public class Job {
     @Column(columnDefinition = "TEXT") private String requirements;
     @Column(name = "job_type")    private String jobType;
     @Column(name = "experience_level") private String experienceLevel;
+    @Column(name = "skills_required", columnDefinition = "text[]")
+    private List<String> skillsRequired;
     @Column(name = "apply_url", nullable = false) private String applyUrl;
     @Column(name = "is_active")   private Boolean isActive;
     @Column(name = "posted_at")   private OffsetDateTime postedAt;
