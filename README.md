@@ -39,6 +39,9 @@
 ```bash
 # 1. Clone & configure
 cp .env.example .env
+
+Connect: https://www.linkedin.com/in/YOUR-LINKEDIN
+
 # Edit .env with your secrets
 
 # 2. Start everything
